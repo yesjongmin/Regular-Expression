@@ -17,7 +17,7 @@
 
     . - ^ $ * + ? {} [] \ | ()
 
-<img src="/path/to/img.jpg" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+<img width="80%" src="https://user-images.githubusercontent.com/134346376/240307099-cd171ac6-3879-4546-8b3b-983be5a66054.png"/>
 
 
 
