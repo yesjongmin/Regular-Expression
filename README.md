@@ -17,6 +17,10 @@
 
     . - ^ $ * + ? {} [] \ | ()
 
+<img src="/path/to/img.jpg" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+
+
+
 
 #### []
 * 문자 클래스인 []는 "[] 사이의 문자들과 매치"라는 의미를 가지며, []사이에는 어떤 문자도 들어갈 수 있습니다.
@@ -86,8 +90,11 @@
 * $: End of String
 
 ## 파이썬과 정규표현식
+* 파이썬은 정규 표현식을 지원하기 위해 re(regular expression)모듈을 제공합니다.
 
-
+      import re
+      pattern = re.compile("정규식")
+    
 
 
 
