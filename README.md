@@ -119,7 +119,7 @@ python문자열은 [a-z]+정규식에 부합되므로 match 객체를 돌려줍�
         >>> m.span()
         (0, 6)    
 
-만약 match메서드를 사용해 반환된 match메서드라면 start()의 결과값은 항상 0일 것입니다. match메서드는 항상 문자열의 시작부터 조사하기 때문이죠.
+위의 코드와 같이 match메서드를 사용해 반환된 match메서드라면 start()의 결과값은 항상 0일 것입니다. match메서드는 항상 문자열의 시작부터 조사하기 때문이죠.
 
 search 메서드를 사용한다면 start()값은 다르게 나올 것입니다.
 
@@ -132,6 +132,174 @@ search 메서드를 사용한다면 start()값은 다르게 나올 것입니다.
         8
         >>> m.span()
         (2, 8)
+        
+# 예제 코드
+#### 여러가지 메타문자의 예제코드
+1. '.'(마침표) : 어떤 한 개의 문자와 매치됩니다. 단, 줄바꿈 문자(\n)를 제외한 모든 문자와 매치됩니다.
+        
+        
+        import re
+        
+        pattern = re.compile(r'a.b')
+        text = 'a1b abb acb'
+        matches = pattern.findall(text)
+        print(matches)  # ['a1b', 'abb', 'acb']
+
+2. '^'(캐럿) : 문자열의 시작과 매치됩니다.
 
 
+        import re
+
+        pattern = re.compile(r'^Hello')
+        text = 'Hello, world! Hello, everyone!'
+        matches = pattern.findall(text)
+        print(matches)  # ['Hello']
+
+3. '$'(달러) : 문자열의 끝과 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'world!$')
+        text = 'Hello, world! Goodbye, world!'
+        matches = pattern.findall(text)
+        print(matches)  # ['world!']
+
+
+4. '*'(별표) : 앞의 문자가 0번 이상 반복되는 패턴과 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'ab*c')
+        text = 'ac abc abbc abbbc'
+        matches = pattern.findall(text)
+        print(matches)  # ['ac', 'abc', 'abbc', 'abbbc']
+
+5. '+'(더하기) : 앞의 문자가 1번 이상 반복되는 패턴과 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'ab+c')
+        text = 'ac abc abbc abbbc'
+        matches = pattern.findall(text)
+        print(matches)  # ['abc', 'abbc', 'abbbc']
+
+
+6. '?'(물음표) : 앞의 문자가 0번 또는 1번만 반복되는 패턴과 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'ab?c')
+        text = 'ac abc abbc abbbc'
+        matches = pattern.findall(text)
+        print(matches)  # ['ac', 'abc', 'ac']
+
+7. '{}'(중괄호) : 
+
+
+        import re
+
+        pattern = re.compile(r'ab{2}c')
+        text = 'ac abc abbc abbbc'
+        matches = pattern.findall(text)
+        print(matches)  # ['abbc']
+
+8. '[]'(대괄호) : 대괄호 안의 문자들 중 한 개의 문자와 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'[aeiou]')
+        text = 'apple orange banana'
+        matches = pattern.findall(text)
+        print(matches)  # ['a', 'e', 'o', 'a', 'e', 'a']
+
+9. '\'(역슬래시) : 특수 문자의 의미를 제거하고 해당 문자 자체와 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'\$')
+        text = 'The price is $10.'
+        matches = pattern.findall(text)
+        print(matches)  # ['$']
+
+10. '|'(파이프) : 대안을 의미하며, 여러 패턴 중 하나와 매치됩니다.
+
+
+        import re
+
+        pattern = re.compile(r'apple|orange')
+        text = 'I like apple and orange.'
+        matches = pattern.findall(text)
+        print(matches)  # ['apple', 'orange']
+        
+11. '()'(괄호) : 그룹을 지정하며, 그룹으로 묶인 패턴을 추출하거나 특정한 작업을 수행할 수 있습니다.
+
+
+        import re
+
+        pattern = re.compile(r'(\d+)-(\d+)-(\d+)')
+        text = 'Date: 2023-05-23'
+        matches = pattern.findall(text)
+        print(matches)  # [('2023', '05', '23')]
+
+#### 메타문자를 이용한 응용 예제코드
+1. 이메일 주소 추출
+
+
+        import re
+
+        text = 'Contact us at info@example.com or contact@example.com'
+        pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b')
+        matches = pattern.findall(text)
+        print(matches)  # ['info@example.com', 'contact@example.com']
+
+2. 전화번호 추출
+
+
+        import re
+
+        text = 'Please call 123-456-7890 or 987-654-3210 for assistance.'
+        pattern = re.compile(r'\d{3}-\d{3}-\d{4}')
+        matches = pattern.findall(text)
+        print(matches)  # ['123-456-7890', '987-654-3210']
+
+3. URL 추출
+
+
+        import re
+
+        text = 'Visit our website at https://www.example.com'
+        pattern = re.compile(r'https?://[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b')
+        matches = pattern.findall(text)
+        print(matches)  # ['https://www.example.com']
+
+
+4. 단어 개수 세기
+
+
+        import re
+
+        text = 'Hello, how are you today?'
+        pattern = re.compile(r'\b\w+\b')
+        matches = pattern.findall(text)
+        word_count = len(matches)
+        print(word_count)  # 5
+
+
+5. HTML 태그 제거
+
+
+        import re
+
+        text = '<p>Some <b>bold</b> and <i>italic</i> text.</p>'
+        pattern = re.compile(r'<[^>]+>')
+        result = pattern.sub('', text)
+        print(result)  # 'Some bold and italic text.'
+
+------
 ###### 참고사이트 : https://sooftware.io/regex/, https://fhaktj8-18.tistory.com/entry/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D-%EA%B8%B0%EC%B4%88%EC%99%80-%EC%98%88%EC%A0%9C-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0, https://chat.openai.com/
